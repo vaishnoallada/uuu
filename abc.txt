@@ -1,0 +1,41 @@
+FROM fedora
+RUN yum install java -y
+RUN mkdir /opt/tomcat
+WORKDIR /opt/tomcat
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.83/bin/apache-tomcat-9.0.83.tar.gz .
+RUN tar -xvzf apache-tomcat-9.0.83.tar.gz
+RUN mv apache-tomcat-9.0.83/* /opt/tomcat
+EXPOSE 8080
+CMD ["/opt/tomcat/bin/catalina.sh","run"]
+---------------------------------------------------------------
+M2_HOME=/opt/maven-3.9
+M2=/opt/maven-3.9/bin
+PATH=$PATH:$HOME/bin:$M2_HOME:$M2
+
+source ~/.bash_profile
+
+
+echo $PATH
+
+cd/
+mvn-version
+--------------------------------------------------------------------
+ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
+ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
+
+ls -l /usr/local/bin/tomcatup
+
+
+find / -name context.xml
+
+cd /opt/tomcat/conf
+tomcat-users.xml
+-----------------------------------------------------
+<role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="manager-jmx"/>
+ <role rolename="manager-status"/>
+ <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ <user username="deployer" password="deployer" roles="manager-script"/>
+ <user username="tomcat" password="s3cret" roles="manager-gui"/>
+ -----------------------------------------------------------------
